@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "License Management System",
+  title: "NVH",
   description: "Secure license management with auto-trial and admin dashboard",
 };
 

@@ -239,7 +239,7 @@ export default function Login() {
           fontSize: '0.75rem',
           color: 'rgba(255, 255, 255, 0.7)'
         }}>
-          License Management System
+          NVH
         </div>
       </div>
     </div>
