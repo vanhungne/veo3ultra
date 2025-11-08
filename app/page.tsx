@@ -26,7 +26,7 @@ export default function Home() {
     );
   }
 
-  const downloadLink = 'https://drive.google.com/file/d/11iDaQ2TCjt4TMBqIiAALPM_6xaGf7Gno/view?usp=drive_link';
+  const downloadLink = 'https://drive.google.com/file/d/15OHu2xkW167fnu76HW8499K9ArhrvzTc/view?usp=sharing';
 
   return (
     <div className="min-h-screen text-white overflow-x-hidden relative">
@@ -124,7 +124,7 @@ export default function Home() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 my-12 animate-fade-in-up animation-delay-400">
               {[
                 { icon: '🚀', text: 'Tốc Độ Cực Nhanh' },
-                { icon: '🎨', text: 'Chất Lượng 4K' },
+                { icon: '🎨', text: 'Chất Lượng 1080p' },
                 { icon: '🔒', text: 'Bảo Mật Tuyệt Đối' }
               ].map((point, i) => (
                 <div key={i} className="bg-white/5 backdrop-blur-md rounded-2xl p-6 border border-white/10 hover:bg-white/8 hover:border-purple-400/50 transition-all duration-300 transform hover:scale-105 group">
