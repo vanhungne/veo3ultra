@@ -176,7 +176,6 @@ export default function CreateLicensePage() {
                   background: 'rgba(255, 255, 255, 0.15)',
                   color: '#ffffff',
                   backdropFilter: 'blur(10px)',
-                  border: '1px solid rgba(255, 255, 255, 0.3)',
                   outline: 'none',
                   transition: 'all 0.2s'
                 }}
@@ -240,7 +239,6 @@ export default function CreateLicensePage() {
                   background: 'rgba(255, 255, 255, 0.15)',
                   color: '#ffffff',
                   backdropFilter: 'blur(10px)',
-                  border: '1px solid rgba(255, 255, 255, 0.3)',
                   cursor: 'pointer',
                   WebkitAppearance: 'none',
                   MozAppearance: 'none',
@@ -276,7 +274,6 @@ export default function CreateLicensePage() {
                   background: 'rgba(255, 255, 255, 0.15)',
                   color: '#ffffff',
                   backdropFilter: 'blur(10px)',
-                  border: '1px solid rgba(255, 255, 255, 0.3)',
                   outline: 'none',
                   transition: 'all 0.2s'
                 }}
@@ -317,7 +314,6 @@ export default function CreateLicensePage() {
                   background: 'rgba(255, 255, 255, 0.15)',
                   color: '#ffffff',
                   backdropFilter: 'blur(10px)',
-                  border: '1px solid rgba(255, 255, 255, 0.3)',
                   cursor: 'pointer',
                   WebkitAppearance: 'none',
                   MozAppearance: 'none',

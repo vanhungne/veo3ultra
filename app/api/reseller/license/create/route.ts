@@ -25,11 +25,24 @@ const ResellerCreateSchema = z.object({
 export async function POST(req: NextRequest) {
   try {
     // Verify reseller authentication (reseller cũng là admin với role RESELLER)
-    const admin = await verifyAdmin(req);
-    if (!admin) {
+    const adminPayload = await verifyAdmin(req);
+    if (!adminPayload) {
       return NextResponse.json({
         success: false,
         error: 'Unauthorized',
+      }, { status: 401 });
+    }
+
+    // Get full admin data from database (to get name)
+    const admin = await prisma.admin.findUnique({
+      where: { id: adminPayload.id },
+      select: { id: true, email: true, name: true, role: true },
+    });
+
+    if (!admin) {
+      return NextResponse.json({
+        success: false,
+        error: 'Admin not found',
       }, { status: 401 });
     }
 
