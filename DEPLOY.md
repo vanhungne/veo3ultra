@@ -28,16 +28,35 @@ Project đã được upload lên GitHub: https://github.com/vanhungne/veo3ultra
      TRIAL_DAYS=1
      ```
 
-4. **Deploy**
+4. **Cấu hình Build Settings (Quan trọng!)**
+   - Project đã có file `vercel.json` với build command: `prisma generate && next build`
+   - File `package.json` đã có `postinstall` script để generate Prisma Client
+   - Vercel sẽ tự động chạy `prisma generate` trước khi build
+   - **Lưu ý**: Nếu gặp lỗi Prisma Client, đảm bảo:
+     - File `vercel.json` đã được commit
+     - Build Command trong Vercel settings là: `prisma generate && next build`
+
+5. **Deploy**
    - Click "Deploy"
-   - Vercel sẽ tự động build và deploy
+   - Vercel sẽ tự động:
+     1. Install dependencies
+     2. Run `prisma generate` (từ postinstall script)
+     3. Run `prisma generate && next build` (từ vercel.json)
+     4. Deploy application
    - Sau khi deploy xong, bạn sẽ có URL như: `https://veo3ultra.vercel.app`
 
-5. **Setup Database (SQL Server)**
+6. **Setup Database (SQL Server)**
    - Vercel không hỗ trợ SQL Server trực tiếp
    - Cần sử dụng SQL Server cloud service (Azure SQL, AWS RDS, hoặc self-hosted)
-   - Chạy Prisma migrations sau khi deploy:
+   - Chạy Prisma migrations sau khi deploy (từ local hoặc Vercel CLI):
      ```bash
+     # Từ local machine với DATABASE_URL từ Vercel
+     npx prisma migrate deploy
+     npx prisma db seed
+     ```
+   - Hoặc sử dụng Vercel CLI:
+     ```bash
+     vercel env pull .env.local
      npx prisma migrate deploy
      npx prisma db seed
      ```
@@ -180,6 +199,21 @@ Project đã được upload lên GitHub: https://github.com/vanhungne/veo3ultra
 ---
 
 ## 🐛 Troubleshooting
+
+### Prisma Client Error trên Vercel
+
+**Lỗi**: `PrismaClientInitializationError: Prisma has detected that this project was built on Vercel...`
+
+**Giải pháp**:
+1. ✅ Đảm bảo file `vercel.json` đã được commit và push lên GitHub
+2. ✅ Kiểm tra Build Command trong Vercel Project Settings:
+   - Vào Project Settings → General → Build & Development Settings
+   - Build Command phải là: `prisma generate && next build`
+3. Clear Vercel build cache:
+   - Vào Project Settings → General
+   - Click "Clear Build Cache"
+   - Redeploy project
+4. ✅ File `package.json` đã có `postinstall` script để tự động generate Prisma Client
 
 ### Database Connection Error
 ```bash
