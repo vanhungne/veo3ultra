@@ -1,0 +1,104 @@
+// Prisma Schema for License Management System
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlserver"
+  url      = env("DATABASE_URL")
+}
+
+// Admin users
+model Admin {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String   // bcrypt hashed
+  name      String
+  role      String   @default("ADMIN") // SUPER_ADMIN, ADMIN, VIEWER
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  // Activity logs
+  activities ActivityLog[]
+  
+  @@map("admins")
+}
+
+// Devices (unique per machine)
+model Device {
+  id           String   @id @default(cuid())
+  deviceId     String   @unique  // Windows MachineGuid
+  firstSeen    DateTime @default(now())
+  lastSeen     DateTime @updatedAt
+  hostname     String?
+  ipAddress    String?
+  
+  // Relationship
+  licenses     License[]
+  trialUsed    Boolean  @default(false) // Track if trial was used
+  
+  @@index([deviceId])
+  @@map("devices")
+}
+
+// License records
+model License {
+  id          String        @id @default(cuid())
+  deviceId    String
+  device      Device        @relation(fields: [deviceId], references: [deviceId])
+  
+  toolType    String        // "veo", "flux", etc.
+  licenseKey  String        @unique // DID|OWNER|YYYY-MM-DD|SIGNATURE
+  
+  owner       String?       // Owner/note
+  type        String        @default("TRIAL") // TRIAL, MONTHLY, YEARLY, LIFETIME, CUSTOM
+  status      String        @default("ACTIVE") // ACTIVE, EXPIRED, REVOKED, SUSPENDED
+  
+  issuedAt    DateTime      @default(now())
+  expiresAt   DateTime
+  activatedAt DateTime?
+  revokedAt   DateTime?
+  
+  // Metadata (stored as JSON string)
+  metadata    String?       // Extra data as JSON string
+  
+  // Tracking
+  activations Int          @default(0)
+  lastUsed    DateTime?
+  
+  @@index([deviceId])
+  @@index([toolType])
+  @@index([status])
+  @@index([expiresAt])
+  @@map("licenses")
+}
+
+// Activity logs for audit trail
+model ActivityLog {
+  id        String   @id @default(cuid())
+  adminId   String?
+  admin     Admin?   @relation(fields: [adminId], references: [id])
+  
+  action    String   // "CREATE_LICENSE", "REVOKE_LICENSE", "LOGIN", etc.
+  details   String?  // JSON string
+  ipAddress String?
+  userAgent String?
+  
+  createdAt DateTime @default(now())
+  
+  @@index([adminId])
+  @@index([createdAt])
+  @@map("activity_logs")
+}
+
+// API Rate limiting (in-memory alternative: use Redis in production)
+model RateLimit {
+  id         String   @id @default(cuid())
+  identifier String   @unique // IP or device ID
+  attempts   Int      @default(0)
+  resetAt    DateTime
+  
+  @@index([identifier])
+  @@map("rate_limits")
+}
+
