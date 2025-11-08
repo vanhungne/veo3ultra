@@ -140,20 +140,33 @@ export default function DevicesPage() {
               </thead>
               <tbody>
                 {devices.map((device) => (
-                  <tr key={device.deviceId} style={{ borderBottom: '1px solid rgba(255, 255, 255, 0.1)' }}>
-                    <td style={{ padding: '1rem', fontSize: '0.875rem', color: '#ffffff', fontFamily: 'monospace' }}>
+                  <tr 
+                    key={device.deviceId} 
+                    style={{ 
+                      borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
+                      transition: 'background 0.2s ease',
+                      cursor: 'default'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.background = 'rgba(255, 255, 255, 0.08)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.background = 'transparent';
+                    }}
+                  >
+                    <td style={{ padding: '1rem', fontSize: '0.875rem', color: '#ffffff', fontFamily: 'monospace', transition: 'color 0.2s ease' }}>
                       {device.deviceId}
                     </td>
-                    <td style={{ padding: '1rem', fontSize: '0.875rem', color: '#ffffff' }}>
+                    <td style={{ padding: '1rem', fontSize: '0.875rem', color: '#ffffff', transition: 'color 0.2s ease' }}>
                       {device.hostname || '-'}
                     </td>
-                    <td style={{ padding: '1rem', fontSize: '0.875rem', color: '#ffffff' }}>
+                    <td style={{ padding: '1rem', fontSize: '0.875rem', color: '#ffffff', transition: 'color 0.2s ease' }}>
                       {new Date(device.firstSeen).toLocaleString()}
                     </td>
-                    <td style={{ padding: '1rem', fontSize: '0.875rem', color: '#ffffff' }}>
+                    <td style={{ padding: '1rem', fontSize: '0.875rem', color: '#ffffff', transition: 'color 0.2s ease' }}>
                       {new Date(device.lastSeen).toLocaleString()}
                     </td>
-                    <td style={{ padding: '1rem', fontSize: '0.875rem', color: '#ffffff' }}>
+                    <td style={{ padding: '1rem', fontSize: '0.875rem', color: '#ffffff', transition: 'color 0.2s ease' }}>
                       {device._count.licenses}
                     </td>
                   </tr>

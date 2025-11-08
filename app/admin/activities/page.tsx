@@ -180,8 +180,21 @@ export default function ActivitiesPage() {
                 {activities.map((activity) => {
                   const details = parseDetails(activity.details);
                   return (
-                    <tr key={activity.id} style={{ borderBottom: '1px solid rgba(255, 255, 255, 0.1)' }}>
-                      <td style={{ padding: '1rem', fontSize: '0.875rem', color: '#ffffff' }}>
+                    <tr 
+                      key={activity.id} 
+                      style={{ 
+                        borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
+                        transition: 'background 0.2s ease',
+                        cursor: 'default'
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.background = 'rgba(255, 255, 255, 0.08)';
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.background = 'transparent';
+                      }}
+                    >
+                      <td style={{ padding: '1rem', fontSize: '0.875rem', color: '#ffffff', transition: 'color 0.2s ease' }}>
                         {new Date(activity.createdAt).toLocaleString()}
                       </td>
                       <td style={{ padding: '1rem' }}>
@@ -197,10 +210,10 @@ export default function ActivitiesPage() {
                           {activity.action}
                         </span>
                       </td>
-                      <td style={{ padding: '1rem', fontSize: '0.875rem', color: '#ffffff' }}>
+                      <td style={{ padding: '1rem', fontSize: '0.875rem', color: '#ffffff', transition: 'color 0.2s ease' }}>
                         {activity.admin ? activity.admin.email : 'System'}
                       </td>
-                      <td style={{ padding: '1rem', fontSize: '0.875rem', color: '#ffffff' }}>
+                      <td style={{ padding: '1rem', fontSize: '0.875rem', color: '#ffffff', transition: 'color 0.2s ease' }}>
                         {details && typeof details === 'object' ? (
                           <div>
                             {details.description && (
@@ -227,7 +240,7 @@ export default function ActivitiesPage() {
                           details || '-'
                         )}
                       </td>
-                      <td style={{ padding: '1rem', fontSize: '0.875rem', color: '#ffffff', fontFamily: 'monospace' }}>
+                      <td style={{ padding: '1rem', fontSize: '0.875rem', color: '#ffffff', fontFamily: 'monospace', transition: 'color 0.2s ease' }}>
                         {activity.ipAddress || '-'}
                       </td>
                     </tr>

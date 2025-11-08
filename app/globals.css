@@ -476,8 +476,19 @@ th {
   border-bottom: 1px solid #e5e7eb;
 }
 
+/* Fix table row hover - only apply to light backgrounds */
 tr:hover {
-  background: #f9fafb;
+  background: rgba(255, 255, 255, 0.05) !important;
+}
+
+/* Dark theme table rows should have subtle hover */
+tbody tr:hover {
+  background: rgba(255, 255, 255, 0.08) !important;
+  transition: background 0.2s ease;
+}
+
+tbody tr:hover td {
+  color: #ffffff !important;
 }
 
 /* Custom utilities */

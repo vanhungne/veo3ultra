@@ -472,16 +472,29 @@ export default function LicensesPage() {
               </thead>
               <tbody>
                 {licenses.map((license) => (
-                  <tr key={license.id} style={{ borderBottom: '1px solid rgba(255, 255, 255, 0.1)' }}>
-                    <td style={{ padding: '1rem', fontSize: '0.875rem', color: '#ffffff' }}>
+                  <tr 
+                    key={license.id} 
+                    style={{ 
+                      borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
+                      transition: 'background 0.2s ease',
+                      cursor: 'default'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.background = 'rgba(255, 255, 255, 0.08)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.background = 'transparent';
+                    }}
+                  >
+                    <td style={{ padding: '1rem', fontSize: '0.875rem', color: '#ffffff', transition: 'color 0.2s ease' }}>
                       {license.deviceId}
                       {license.device?.hostname && (
                         <div style={{ fontSize: '0.75rem', color: 'rgba(255, 255, 255, 0.7)' }}>{license.device.hostname}</div>
                       )}
                     </td>
-                    <td style={{ padding: '1rem', fontSize: '0.875rem', color: '#ffffff' }}>{license.toolType}</td>
-                    <td style={{ padding: '1rem', fontSize: '0.875rem', color: '#ffffff' }}>{license.type}</td>
-                    <td style={{ padding: '1rem' }}>
+                    <td style={{ padding: '1rem', fontSize: '0.875rem', color: '#ffffff', transition: 'color 0.2s ease' }}>{license.toolType}</td>
+                    <td style={{ padding: '1rem', fontSize: '0.875rem', color: '#ffffff', transition: 'color 0.2s ease' }}>{license.type}</td>
+                    <td style={{ padding: '1rem', transition: 'color 0.2s ease' }}>
                       <span style={{
                         padding: '0.25rem 0.75rem',
                         borderRadius: '12px',
@@ -493,8 +506,8 @@ export default function LicensesPage() {
                         {license.status}
                       </span>
                     </td>
-                    <td style={{ padding: '1rem', fontSize: '0.875rem', color: '#ffffff' }}>{license.owner || '-'}</td>
-                    <td style={{ padding: '1rem', fontSize: '0.875rem', color: '#ffffff' }}>
+                    <td style={{ padding: '1rem', fontSize: '0.875rem', color: '#ffffff', transition: 'color 0.2s ease' }}>{license.owner || '-'}</td>
+                    <td style={{ padding: '1rem', fontSize: '0.875rem', color: '#ffffff', transition: 'color 0.2s ease' }}>
                       {new Date(license.expiresAt).toLocaleDateString()}
                     </td>
                     <td style={{ padding: '1rem' }}>
@@ -509,7 +522,16 @@ export default function LicensesPage() {
                             fontSize: '0.75rem',
                             color: '#ffffff',
                             cursor: 'pointer',
-                            backdropFilter: 'blur(10px)'
+                            backdropFilter: 'blur(10px)',
+                            transition: 'all 0.2s ease'
+                          }}
+                          onMouseEnter={(e) => {
+                            e.currentTarget.style.background = 'rgba(102, 126, 234, 0.5)';
+                            e.currentTarget.style.transform = 'translateY(-1px)';
+                          }}
+                          onMouseLeave={(e) => {
+                            e.currentTarget.style.background = 'rgba(102, 126, 234, 0.3)';
+                            e.currentTarget.style.transform = 'translateY(0)';
                           }}
                         >
                           View
@@ -518,13 +540,22 @@ export default function LicensesPage() {
                           onClick={() => copyLicenseKey(license.licenseKey)}
                           style={{
                             padding: '0.25rem 0.75rem',
-                            background: 'rgba(255, 255, 255, 0.2)',
+                            background: 'rgba(255, 255, 255, 0.15)',
                             border: '1px solid rgba(255, 255, 255, 0.3)',
                             borderRadius: '6px',
                             fontSize: '0.75rem',
                             color: '#ffffff',
                             cursor: 'pointer',
-                            backdropFilter: 'blur(10px)'
+                            backdropFilter: 'blur(10px)',
+                            transition: 'all 0.2s ease'
+                          }}
+                          onMouseEnter={(e) => {
+                            e.currentTarget.style.background = 'rgba(255, 255, 255, 0.25)';
+                            e.currentTarget.style.transform = 'translateY(-1px)';
+                          }}
+                          onMouseLeave={(e) => {
+                            e.currentTarget.style.background = 'rgba(255, 255, 255, 0.15)';
+                            e.currentTarget.style.transform = 'translateY(0)';
                           }}
                         >
                           Copy
@@ -543,7 +574,16 @@ export default function LicensesPage() {
                                   fontSize: '0.75rem',
                                   color: '#ffffff',
                                   cursor: 'pointer',
-                                  backdropFilter: 'blur(10px)'
+                                  backdropFilter: 'blur(10px)',
+                                  transition: 'all 0.2s ease'
+                                }}
+                                onMouseEnter={(e) => {
+                                  e.currentTarget.style.background = 'rgba(59, 130, 246, 0.5)';
+                                  e.currentTarget.style.transform = 'translateY(-1px)';
+                                }}
+                                onMouseLeave={(e) => {
+                                  e.currentTarget.style.background = 'rgba(59, 130, 246, 0.3)';
+                                  e.currentTarget.style.transform = 'translateY(0)';
                                 }}
                               >
                                 Extend
@@ -559,7 +599,16 @@ export default function LicensesPage() {
                                 fontSize: '0.75rem',
                                 color: '#ffffff',
                                 cursor: 'pointer',
-                                backdropFilter: 'blur(10px)'
+                                backdropFilter: 'blur(10px)',
+                                transition: 'all 0.2s ease'
+                              }}
+                              onMouseEnter={(e) => {
+                                e.currentTarget.style.background = 'rgba(239, 68, 68, 0.5)';
+                                e.currentTarget.style.transform = 'translateY(-1px)';
+                              }}
+                              onMouseLeave={(e) => {
+                                e.currentTarget.style.background = 'rgba(239, 68, 68, 0.3)';
+                                e.currentTarget.style.transform = 'translateY(0)';
                               }}
                             >
                               Revoke
@@ -583,15 +632,27 @@ export default function LicensesPage() {
               disabled={page === 1}
               style={{
                 padding: '0.5rem 1rem',
-                background: page === 1 ? '#f3f4f6' : 'white',
-                border: '1px solid #d1d5db',
+                background: page === 1 ? 'rgba(255, 255, 255, 0.1)' : 'rgba(255, 255, 255, 0.15)',
+                border: '1px solid rgba(255, 255, 255, 0.2)',
                 borderRadius: '6px',
-                cursor: page === 1 ? 'not-allowed' : 'pointer'
+                cursor: page === 1 ? 'not-allowed' : 'pointer',
+                color: '#ffffff',
+                transition: 'all 0.2s ease'
+              }}
+              onMouseEnter={(e) => {
+                if (page !== 1) {
+                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.2)';
+                }
+              }}
+              onMouseLeave={(e) => {
+                if (page !== 1) {
+                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.15)';
+                }
               }}
             >
               Previous
             </button>
-            <span style={{ padding: '0.5rem 1rem', display: 'flex', alignItems: 'center' }}>
+            <span style={{ padding: '0.5rem 1rem', display: 'flex', alignItems: 'center', color: '#ffffff' }}>
               Page {page} of {totalPages}
             </span>
             <button
@@ -599,10 +660,22 @@ export default function LicensesPage() {
               disabled={page === totalPages}
               style={{
                 padding: '0.5rem 1rem',
-                background: page === totalPages ? '#f3f4f6' : 'white',
-                border: '1px solid #d1d5db',
+                background: page === totalPages ? 'rgba(255, 255, 255, 0.1)' : 'rgba(255, 255, 255, 0.15)',
+                border: '1px solid rgba(255, 255, 255, 0.2)',
                 borderRadius: '6px',
-                cursor: page === totalPages ? 'not-allowed' : 'pointer'
+                cursor: page === totalPages ? 'not-allowed' : 'pointer',
+                color: '#ffffff',
+                transition: 'all 0.2s ease'
+              }}
+              onMouseEnter={(e) => {
+                if (page !== totalPages) {
+                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.2)';
+                }
+              }}
+              onMouseLeave={(e) => {
+                if (page !== totalPages) {
+                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.15)';
+                }
               }}
             >
               Next

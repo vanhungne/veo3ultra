@@ -153,17 +153,30 @@ export default function ResellersPage() {
                 </thead>
                 <tbody>
                   {resellers.map((reseller) => (
-                    <tr key={reseller.id} style={{ borderBottom: '1px solid #e5e7eb' }}>
-                      <td style={{ padding: '1rem', fontSize: '0.875rem', color: '#111827' }}>
+                    <tr 
+                      key={reseller.id} 
+                      style={{ 
+                        borderBottom: '1px solid #e5e7eb',
+                        transition: 'background 0.2s ease',
+                        cursor: 'default'
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.background = '#f9fafb';
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.background = 'transparent';
+                      }}
+                    >
+                      <td style={{ padding: '1rem', fontSize: '0.875rem', color: '#111827', transition: 'color 0.2s ease' }}>
                         {reseller.name}
                       </td>
-                      <td style={{ padding: '1rem', fontSize: '0.875rem', color: '#111827' }}>
+                      <td style={{ padding: '1rem', fontSize: '0.875rem', color: '#111827', transition: 'color 0.2s ease' }}>
                         {reseller.email}
                       </td>
-                      <td style={{ padding: '1rem', fontSize: '0.875rem', color: '#111827' }}>
+                      <td style={{ padding: '1rem', fontSize: '0.875rem', color: '#111827', transition: 'color 0.2s ease' }}>
                         {reseller._count.activities}
                       </td>
-                      <td style={{ padding: '1rem', fontSize: '0.875rem', color: '#111827' }}>
+                      <td style={{ padding: '1rem', fontSize: '0.875rem', color: '#111827', transition: 'color 0.2s ease' }}>
                         {new Date(reseller.createdAt).toLocaleDateString()}
                       </td>
                     </tr>
