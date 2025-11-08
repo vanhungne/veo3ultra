@@ -46,12 +46,6 @@ export default function Home() {
               <a href="#features" className="hover:text-purple-300 transition-colors">Features</a>
               <a href="#download" className="hover:text-purple-300 transition-colors">Download</a>
               <a href="#about" className="hover:text-purple-300 transition-colors">About</a>
-              <Link 
-                href="/login" 
-                className="px-4 py-2 bg-gradient-to-r from-purple-600 to-blue-600 rounded-lg hover:from-purple-700 hover:to-blue-700 transition-all transform hover:scale-105"
-              >
-                Admin Login
-              </Link>
             </div>
           </div>
         </div>
