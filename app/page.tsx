@@ -127,9 +127,9 @@ export default function Home() {
                 { icon: '🎨', text: 'Chất Lượng 4K' },
                 { icon: '🔒', text: 'Bảo Mật Tuyệt Đối' }
               ].map((point, i) => (
-                <div key={i} className="bg-white/5 backdrop-blur-md rounded-2xl p-6 border border-white/10 hover:bg-white/10 hover:border-purple-400/50 transition-all duration-300 transform hover:scale-105">
-                  <div className="text-4xl mb-3">{point.icon}</div>
-                  <div className="text-lg font-semibold text-gray-300">{point.text}</div>
+                <div key={i} className="bg-white/5 backdrop-blur-md rounded-2xl p-6 border border-white/10 hover:bg-white/8 hover:border-purple-400/50 transition-all duration-300 transform hover:scale-105 group">
+                  <div className="text-4xl mb-3 group-hover:scale-110 transition-transform">{point.icon}</div>
+                  <div className="text-lg font-semibold text-gray-200 group-hover:text-white transition-colors">{point.text}</div>
                 </div>
               ))}
             </div>
@@ -147,13 +147,13 @@ export default function Home() {
                   <span>Tải Xuống Ngay</span>
                   <span className="group-hover:translate-x-2 transition-transform duration-300">→</span>
                 </span>
-                <div className="absolute inset-0 bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-300"></div>
-                <div className="absolute inset-0 bg-white/20 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
+                <div className="absolute inset-0 bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 opacity-0 group-hover:opacity-50 blur-2xl transition-opacity duration-300 -z-10"></div>
+                <div className="absolute inset-0 bg-white/10 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left -z-10"></div>
               </a>
               
               <a
                 href="#features"
-                className="px-10 py-5 bg-white/10 backdrop-blur-md border-2 border-white/20 rounded-2xl font-bold text-xl hover:bg-white/20 hover:border-purple-400/50 transition-all duration-300 transform hover:scale-105"
+                className="px-10 py-5 bg-white/10 backdrop-blur-md border-2 border-white/20 rounded-2xl font-bold text-xl hover:bg-white/15 hover:border-purple-400/50 transition-all duration-300 transform hover:scale-105 text-white"
               >
                 Khám Phá Tính Năng
               </a>
@@ -166,11 +166,11 @@ export default function Home() {
                 { number: '50K+', label: 'Video Đã Tạo', color: 'from-blue-400 to-cyan-400' },
                 { number: '99%', label: 'Hài Lòng', color: 'from-pink-400 to-rose-400' }
               ].map((stat, i) => (
-                <div key={i} className="bg-white/5 backdrop-blur-md rounded-3xl p-8 border border-white/10 hover:bg-white/10 hover:border-purple-400/50 transition-all duration-300 transform hover:scale-105 hover:-translate-y-2">
-                  <div className={`text-5xl font-black mb-3 bg-gradient-to-r ${stat.color} bg-clip-text text-transparent`}>
+                <div key={i} className="bg-white/5 backdrop-blur-md rounded-3xl p-8 border border-white/10 hover:bg-white/8 hover:border-purple-400/50 transition-all duration-300 transform hover:scale-105 hover:-translate-y-2 group">
+                  <div className={`text-5xl font-black mb-3 bg-gradient-to-r ${stat.color} bg-clip-text text-transparent group-hover:scale-110 transition-transform`}>
                     {stat.number}
                   </div>
-                  <div className="text-gray-400 text-lg">{stat.label}</div>
+                  <div className="text-gray-300 group-hover:text-gray-200 text-lg transition-colors">{stat.label}</div>
                 </div>
               ))}
             </div>
@@ -252,22 +252,22 @@ export default function Home() {
             ].map((feature, index) => (
               <div
                 key={index}
-                className="group relative bg-white/5 backdrop-blur-md rounded-3xl p-8 border border-white/10 hover:border-purple-400/50 transition-all duration-500 transform hover:scale-105 hover:-translate-y-2"
+                className="group relative bg-white/5 backdrop-blur-md rounded-3xl p-8 border border-white/10 hover:bg-white/8 hover:border-purple-400/50 transition-all duration-500 transform hover:scale-105 hover:-translate-y-2"
               >
                 <div className={`w-20 h-20 rounded-2xl bg-gradient-to-br ${feature.color} flex items-center justify-center text-4xl mb-6 transform group-hover:rotate-12 group-hover:scale-110 transition-all duration-500 shadow-lg`}>
                   {feature.icon}
                 </div>
-                <h3 className="text-2xl font-bold mb-4">{feature.title}</h3>
-                <p className="text-gray-400 leading-relaxed mb-6">{feature.description}</p>
+                <h3 className="text-2xl font-bold mb-4 text-white group-hover:text-purple-300 transition-colors">{feature.title}</h3>
+                <p className="text-gray-300 leading-relaxed mb-6 group-hover:text-gray-200 transition-colors">{feature.description}</p>
                 <ul className="space-y-2">
                   {feature.features.map((f, i) => (
-                    <li key={i} className="flex items-center text-sm text-gray-500">
-                      <span className="w-1.5 h-1.5 bg-purple-400 rounded-full mr-2"></span>
+                    <li key={i} className="flex items-center text-sm text-gray-400 group-hover:text-gray-300 transition-colors">
+                      <span className="w-1.5 h-1.5 bg-purple-400 rounded-full mr-2 group-hover:bg-purple-300 transition-colors"></span>
                       {f}
                     </li>
                   ))}
                 </ul>
-                <div className={`absolute inset-0 rounded-3xl bg-gradient-to-br ${feature.color} opacity-0 group-hover:opacity-10 transition-opacity duration-500 -z-10`}></div>
+                <div className={`absolute inset-0 rounded-3xl bg-gradient-to-br ${feature.color} opacity-0 group-hover:opacity-5 transition-opacity duration-500 -z-10`}></div>
               </div>
             ))}
           </div>
@@ -307,8 +307,8 @@ export default function Home() {
                       <span>Tải VeoProGen</span>
                       <span className="group-hover:translate-x-3 transition-transform duration-300">→</span>
                     </span>
-                    <div className="absolute inset-0 bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 opacity-0 group-hover:opacity-100 blur-2xl transition-opacity duration-300"></div>
-                    <div className="absolute inset-0 bg-white/30 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
+                    <div className="absolute inset-0 bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 opacity-0 group-hover:opacity-50 blur-2xl transition-opacity duration-300 -z-10"></div>
+                    <div className="absolute inset-0 bg-white/10 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left -z-10"></div>
                   </a>
                 </div>
 
@@ -318,10 +318,10 @@ export default function Home() {
                     { icon: '🔒', title: 'An Toàn', desc: 'Bảo mật tuyệt đối' },
                     { icon: '⚡', title: 'Cài Đặt Nhanh', desc: 'Chỉ vài phút' }
                   ].map((item, i) => (
-                    <div key={i} className="bg-white/5 backdrop-blur-md rounded-2xl p-6 border border-white/10 hover:bg-white/10 transition-all">
-                      <div className="text-3xl mb-3">{item.icon}</div>
-                      <div className="font-bold text-lg mb-1">{item.title}</div>
-                      <div className="text-sm text-gray-400">{item.desc}</div>
+                    <div key={i} className="bg-white/5 backdrop-blur-md rounded-2xl p-6 border border-white/10 hover:bg-white/8 hover:border-purple-400/50 transition-all group">
+                      <div className="text-3xl mb-3 group-hover:scale-110 transition-transform">{item.icon}</div>
+                      <div className="font-bold text-lg mb-1 text-white group-hover:text-purple-300 transition-colors">{item.title}</div>
+                      <div className="text-sm text-gray-300 group-hover:text-gray-200 transition-colors">{item.desc}</div>
                     </div>
                   ))}
                 </div>
@@ -350,12 +350,12 @@ export default function Home() {
             </div>
 
             <div className="space-y-8">
-              <div className="bg-white/5 backdrop-blur-md rounded-3xl p-10 border border-white/10 hover:border-purple-400/50 transition-all">
-                <h3 className="text-3xl font-bold mb-6 flex items-center space-x-3">
+              <div className="bg-white/5 backdrop-blur-md rounded-3xl p-10 border border-white/10 hover:bg-white/8 hover:border-purple-400/50 transition-all group">
+                <h3 className="text-3xl font-bold mb-6 flex items-center space-x-3 text-white group-hover:text-purple-300 transition-colors">
                   <span className="text-4xl">🎯</span>
                   <span>Sứ Mệnh</span>
                 </h3>
-                <p className="text-gray-300 leading-relaxed text-lg">
+                <p className="text-gray-300 leading-relaxed text-lg group-hover:text-gray-200 transition-colors">
                   VeoProGen được tạo ra với mục tiêu mang đến công cụ tạo video chuyên nghiệp, 
                   dễ sử dụng và mạnh mẽ cho mọi người. Chúng tôi tin rằng mọi người đều có thể 
                   tạo ra nội dung video chất lượng cao mà không cần kỹ năng phức tạp hay kinh nghiệm 
@@ -363,12 +363,12 @@ export default function Home() {
                 </p>
               </div>
 
-              <div className="bg-white/5 backdrop-blur-md rounded-3xl p-10 border border-white/10 hover:border-purple-400/50 transition-all">
-                <h3 className="text-3xl font-bold mb-6 flex items-center space-x-3">
+              <div className="bg-white/5 backdrop-blur-md rounded-3xl p-10 border border-white/10 hover:bg-white/8 hover:border-purple-400/50 transition-all group">
+                <h3 className="text-3xl font-bold mb-6 flex items-center space-x-3 text-white group-hover:text-purple-300 transition-colors">
                   <span className="text-4xl">💡</span>
                   <span>Tại Sao Chọn VeoProGen?</span>
                 </h3>
-                <ul className="space-y-4 text-gray-300 text-lg">
+                <ul className="space-y-4 text-gray-300 text-lg group-hover:text-gray-200 transition-colors">
                   {[
                     'Công nghệ AI tiên tiến nhất trong ngành, được cập nhật liên tục',
                     'Hỗ trợ khách hàng 24/7, luôn sẵn sàng giải đáp mọi thắc mắc',
@@ -377,7 +377,7 @@ export default function Home() {
                     'Cộng đồng người dùng lớn, chia sẻ kinh nghiệm và templates'
                   ].map((item, i) => (
                     <li key={i} className="flex items-start space-x-4">
-                      <span className="text-purple-400 mt-1 text-xl">✓</span>
+                      <span className="text-purple-400 group-hover:text-purple-300 mt-1 text-xl transition-colors">✓</span>
                       <span>{item}</span>
                     </li>
                   ))}
