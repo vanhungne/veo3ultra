@@ -30,6 +30,21 @@ export default function ActivitiesPage() {
       router.push('/login');
       return;
     }
+    
+    // Check if user is reseller - resellers should use /admin/activities/own instead
+    const adminUser = localStorage.getItem('adminUser');
+    if (adminUser) {
+      try {
+        const user = JSON.parse(adminUser);
+        if (user.role === 'RESELLER') {
+          router.push('/admin/activities/own');
+          return;
+        }
+      } catch (e) {
+        // Ignore parsing errors
+      }
+    }
+    
     fetchActivities();
   }, [page, filter]);
 

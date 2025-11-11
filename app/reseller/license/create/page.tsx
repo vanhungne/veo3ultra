@@ -89,17 +89,25 @@ export default function ResellerCreateLicensePage() {
         return;
       }
 
-      setSuccess(data.message || 'License created successfully!');
-      setFormData({
-        deviceId: '',
-        toolType: 'veo',
-        owner: '',
-        package: '1_MONTH',
-      });
-
-      setTimeout(() => {
-        router.push('/admin/licenses');
-      }, 1500);
+      // Redirect đến trang detail của license vừa tạo để lấy token/key
+      if (data.license && data.license.id) {
+        setSuccess(data.message || 'License created successfully! Redirecting...');
+        // Redirect ngay đến trang detail license vừa tạo
+        setTimeout(() => {
+          router.push(`/admin/licenses/${data.license.id}`);
+        }, 1000);
+      } else {
+        setSuccess(data.message || 'License created successfully!');
+        setFormData({
+          deviceId: '',
+          toolType: 'veo',
+          owner: '',
+          package: '1_MONTH',
+        });
+        setTimeout(() => {
+          router.push('/admin/licenses');
+        }, 1500);
+      }
     } catch (error) {
       setError('Network error. Please try again.');
     } finally {

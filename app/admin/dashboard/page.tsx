@@ -431,33 +431,33 @@ export default function AdminDashboard() {
             >
               📋 View All Licenses
             </button>
-            <button
-              onClick={() => router.push('/admin/devices')}
-              style={{
-                padding: '0.5rem 1rem',
-                background: 'rgba(75, 85, 99, 0.6)',
-                color: 'white',
-                border: '1px solid rgba(255, 255, 255, 0.2)',
-                borderRadius: '8px',
-                fontSize: '0.875rem',
-                fontWeight: '500',
-                cursor: 'pointer',
-                transition: 'all 0.3s ease',
-                backdropFilter: 'blur(10px)'
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.background = 'rgba(75, 85, 99, 0.8)';
-                e.currentTarget.style.transform = 'translateY(-2px)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.background = 'rgba(75, 85, 99, 0.6)';
-                e.currentTarget.style.transform = 'translateY(0)';
-              }}
-            >
-              💻 View Devices
-            </button>
             {userRole !== 'RESELLER' && (
               <>
+                <button
+                  onClick={() => router.push('/admin/devices')}
+                  style={{
+                    padding: '0.5rem 1rem',
+                    background: 'rgba(75, 85, 99, 0.6)',
+                    color: 'white',
+                    border: '1px solid rgba(255, 255, 255, 0.2)',
+                    borderRadius: '8px',
+                    fontSize: '0.875rem',
+                    fontWeight: '500',
+                    cursor: 'pointer',
+                    transition: 'all 0.3s ease',
+                    backdropFilter: 'blur(10px)'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.background = 'rgba(75, 85, 99, 0.8)';
+                    e.currentTarget.style.transform = 'translateY(-2px)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.background = 'rgba(75, 85, 99, 0.6)';
+                    e.currentTarget.style.transform = 'translateY(0)';
+                  }}
+                >
+                  💻 View Devices
+                </button>
                 <button
                   onClick={() => router.push('/admin/resellers/create')}
                   style={{

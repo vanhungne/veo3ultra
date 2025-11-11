@@ -23,6 +23,35 @@ export async function GET(req: NextRequest) {
       where.deviceId = { contains: deviceId };
     }
 
+    // If user is RESELLER, only show devices that have licenses created by this reseller
+    if (admin.role === 'RESELLER') {
+      // Get device IDs that have licenses created by this reseller
+      const resellerLicenses = await prisma.license.findMany({
+        where: {
+          metadata: {
+            contains: `"resellerEmail":"${admin.email}"`,
+          },
+        },
+        select: {
+          deviceId: true,
+        },
+        distinct: ['deviceId'],
+      });
+
+      const resellerDeviceIds = resellerLicenses.map(l => l.deviceId);
+      
+      // Filter devices to only show devices that have licenses created by this reseller
+      if (resellerDeviceIds.length > 0) {
+        where.deviceId = {
+          in: resellerDeviceIds,
+          ...(deviceId ? { contains: deviceId } : {}),
+        };
+      } else {
+        // If reseller has no licenses, return empty result
+        where.deviceId = 'never-match-this-id';
+      }
+    }
+
     const total = await prisma.device.count({ where });
 
     const devices = await prisma.device.findMany({

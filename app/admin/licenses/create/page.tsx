@@ -73,18 +73,26 @@ export default function CreateLicensePage() {
         return;
       }
 
-      setSuccess('License created successfully!');
-      setFormData({
-        deviceId: '',
-        toolType: 'veo',
-        owner: '',
-        type: 'YEARLY',
-        days: 365,
-      });
-
-      setTimeout(() => {
-        router.push('/admin/licenses');
-      }, 1500);
+      // Redirect đến trang detail của license vừa tạo để lấy token/key
+      if (data.license && data.license.id) {
+        setSuccess('License created successfully! Redirecting to license details...');
+        // Redirect ngay đến trang detail license vừa tạo
+        setTimeout(() => {
+          router.push(`/admin/licenses/${data.license.id}`);
+        }, 1000);
+      } else {
+        setSuccess('License created successfully!');
+        setFormData({
+          deviceId: '',
+          toolType: 'veo',
+          owner: '',
+          type: 'YEARLY',
+          days: 365,
+        });
+        setTimeout(() => {
+          router.push('/admin/licenses');
+        }, 1500);
+      }
     } catch (error) {
       setError('Network error. Please try again.');
     } finally {

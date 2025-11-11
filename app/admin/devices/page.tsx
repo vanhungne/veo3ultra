@@ -25,6 +25,21 @@ export default function DevicesPage() {
       router.push('/login');
       return;
     }
+    
+    // Check if user is reseller - resellers cannot access this page
+    const adminUser = localStorage.getItem('adminUser');
+    if (adminUser) {
+      try {
+        const user = JSON.parse(adminUser);
+        if (user.role === 'RESELLER') {
+          router.push('/admin/dashboard');
+          return;
+        }
+      } catch (e) {
+        // Ignore parsing errors
+      }
+    }
+    
     fetchDevices();
   }, [search]);
 

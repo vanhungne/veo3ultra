@@ -13,20 +13,14 @@ export async function GET(req: NextRequest) {
       }, { status: 401 });
     }
 
-    // Build base filter - if reseller, only show their licenses
-    // BUT: Trial licenses are visible to everyone (managed separately)
+    // Build base filter - if reseller, only show their licenses (KHÔNG bao gồm TRIAL)
     let licenseFilter: any = {};
     if (admin.role === 'RESELLER') {
-      // Include trial licenses OR licenses created by this reseller
+      // Reseller CHỈ được xem licenses mà họ tạo (không bao gồm TRIAL licenses)
       licenseFilter = {
-        OR: [
-          { type: 'TRIAL' }, // Trial licenses - everyone can see
-          { 
-            metadata: {
-              contains: `"resellerEmail":"${admin.email}"`,
-            }
-          }
-        ]
+        metadata: {
+          contains: `"resellerEmail":"${admin.email}"`,
+        }
       };
     }
 

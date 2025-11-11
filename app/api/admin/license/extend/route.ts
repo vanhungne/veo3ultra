@@ -45,6 +45,30 @@ export async function POST(req: NextRequest) {
       }, { status: 400 });
     }
 
+    // If user is RESELLER, check if they created this license
+    if (admin.role === 'RESELLER') {
+      if (!license.metadata) {
+        return NextResponse.json({
+          success: false,
+          error: 'Access denied - License not created by this reseller',
+        }, { status: 403 });
+      }
+      try {
+        const metadata = JSON.parse(license.metadata);
+        if (metadata.resellerEmail !== admin.email) {
+          return NextResponse.json({
+            success: false,
+            error: 'Access denied - You can only extend licenses you created',
+          }, { status: 403 });
+        }
+      } catch (e) {
+        return NextResponse.json({
+          success: false,
+          error: 'Access denied - Invalid license metadata',
+        }, { status: 403 });
+      }
+    }
+
     // Calculate new expiry date
     const currentExpiresAt = new Date(license.expiresAt);
     const newExpiresAt = new Date(currentExpiresAt);

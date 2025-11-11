@@ -28,41 +28,24 @@ export async function GET(req: NextRequest) {
     // Build where clause
     let where: any = {};
     
-    // If user is RESELLER, only show licenses they created
-    // BUT: Trial licenses are visible to everyone (managed separately)
+    // If user is RESELLER, only show licenses they created (KHÔNG bao gồm TRIAL)
     if (admin.role === 'RESELLER') {
-      // Build OR conditions: Trial licenses OR reseller's licenses
-      const orConditions: any[] = [
-        { type: 'TRIAL' }, // Trial licenses - everyone can see
-        { 
-          metadata: {
-            contains: `"resellerEmail":"${admin.email}"`,
-          }
-        }
-      ];
-
-      // If type filter is set and not TRIAL, only show reseller's licenses with that type
-      if (type && type !== 'TRIAL') {
+      // Reseller CHỈ được export license mà họ tạo (không bao gồm TRIAL licenses)
+      // Nếu type filter là TRIAL, trả về empty (reseller không có quyền export TRIAL)
+      if (type === 'TRIAL') {
+        // Return empty result for reseller when filtering by TRIAL
+        where = { id: 'never-match-this-id' }; // Force empty result
+      } else {
         where = {
           ...baseFilters,
-          type: type,
           metadata: {
             contains: `"resellerEmail":"${admin.email}"`,
           }
         };
-      } else {
-        // Show trial licenses OR reseller's licenses, with base filters
-        where = {
-          AND: [
-            {
-              OR: orConditions
-            },
-            ...Object.keys(baseFilters).map(key => ({ [key]: baseFilters[key] }))
-          ]
-        };
-        // If type filter is set to TRIAL, add it
-        if (type === 'TRIAL') {
-          where.AND.push({ type: 'TRIAL' });
+        
+        // If type filter is set and not TRIAL, filter by type
+        if (type) {
+          where.type = type;
         }
       }
     } else {
@@ -125,6 +108,8 @@ export async function GET(req: NextRequest) {
     }, { status: 500 });
   }
 }
+
+
 
 
 

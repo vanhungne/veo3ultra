@@ -187,43 +187,64 @@ export default function LicenseDetailsPage() {
           </div>
 
           <div style={{ display: 'grid', gap: '1.5rem' }}>
-            {/* License Key */}
-            <div>
-              <label style={{ fontSize: '0.875rem', fontWeight: '500', color: 'rgba(255, 255, 255, 0.9)', display: 'block', marginBottom: '0.5rem' }}>
-                License Key
+            {/* License Key - Highlighted for easy access */}
+            <div style={{
+              background: 'rgba(102, 126, 234, 0.2)',
+              border: '2px solid rgba(102, 126, 234, 0.5)',
+              borderRadius: '12px',
+              padding: '1.5rem',
+              boxShadow: '0 0 20px rgba(102, 126, 234, 0.3)'
+            }}>
+              <label style={{ fontSize: '1rem', fontWeight: '600', color: '#ffffff', display: 'block', marginBottom: '1rem', textShadow: '0 0 10px rgba(102, 126, 234, 0.5)' }}>
+                🔑 License Key
               </label>
-              <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
+              <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center', flexWrap: 'wrap' }}>
                 <code style={{
                   flex: 1,
-                  padding: '0.75rem',
-                  background: 'rgba(255, 255, 255, 0.15)',
-                  border: '1px solid rgba(255, 255, 255, 0.3)',
+                  minWidth: '300px',
+                  padding: '1rem',
+                  background: 'rgba(0, 0, 0, 0.3)',
+                  border: '2px solid rgba(102, 126, 234, 0.6)',
                   borderRadius: '8px',
                   fontSize: '0.875rem',
                   fontFamily: 'monospace',
                   wordBreak: 'break-all',
                   color: '#ffffff',
-                  backdropFilter: 'blur(10px)'
+                  backdropFilter: 'blur(10px)',
+                  fontWeight: '500',
+                  letterSpacing: '0.5px'
                 }}>
                   {license.licenseKey}
                 </code>
                 <button
                   onClick={copyLicenseKey}
                   style={{
-                    padding: '0.75rem 1rem',
-                    background: 'rgba(255, 255, 255, 0.2)',
-                    border: '1px solid rgba(255, 255, 255, 0.3)',
+                    padding: '1rem 1.5rem',
+                    background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                    border: 'none',
                     borderRadius: '8px',
-                    fontSize: '0.875rem',
+                    fontSize: '1rem',
                     cursor: 'pointer',
                     whiteSpace: 'nowrap',
                     color: '#ffffff',
-                    fontWeight: '500',
-                    backdropFilter: 'blur(10px)'
+                    fontWeight: '600',
+                    boxShadow: '0 4px 15px rgba(102, 126, 234, 0.4)',
+                    transition: 'all 0.2s'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.transform = 'translateY(-2px)';
+                    e.currentTarget.style.boxShadow = '0 6px 20px rgba(102, 126, 234, 0.6)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = 'translateY(0)';
+                    e.currentTarget.style.boxShadow = '0 4px 15px rgba(102, 126, 234, 0.4)';
                   }}
                 >
-                  📋 Copy Key
+                  📋 Copy License Key
                 </button>
+              </div>
+              <div style={{ marginTop: '0.75rem', fontSize: '0.75rem', color: 'rgba(255, 255, 255, 0.7)' }}>
+                Click "Copy License Key" to copy to clipboard
               </div>
             </div>
 

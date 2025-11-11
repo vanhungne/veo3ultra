@@ -212,7 +212,7 @@ export default function LicensesPage() {
               ← Back to Dashboard
             </button>
             <h1 style={{ fontSize: '2rem', fontWeight: 'bold', color: '#ffffff', margin: 0, textShadow: '0 0 10px rgba(102, 126, 234, 0.5)' }}>
-              {viewMode === 'trial' ? 'Trial Licenses' : 'Licenses'}
+              {userRole === 'RESELLER' ? 'My Licenses' : (viewMode === 'trial' ? 'Trial Licenses' : 'Licenses')}
             </h1>
           </div>
           <div style={{ display: 'flex', gap: '0.5rem' }}>
@@ -249,58 +249,60 @@ export default function LicensesPage() {
           </div>
         </div>
 
-        {/* View Mode Tabs */}
-        <div style={{
-          background: 'rgba(255, 255, 255, 0.1)',
-          backdropFilter: 'blur(10px)',
-          WebkitBackdropFilter: 'blur(10px)',
-          border: '1px solid rgba(255, 255, 255, 0.2)',
-          borderRadius: '16px',
-          padding: '1rem',
-          marginBottom: '1.5rem',
-          display: 'flex',
-          gap: '0.5rem',
-          boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.37)'
-        }}>
-          <button
-            onClick={() => {
-              setViewMode('all');
-              setPage(1);
-            }}
-            style={{
-              padding: '0.5rem 1.5rem',
-              background: viewMode === 'all' ? '#667eea' : 'transparent',
-              color: viewMode === 'all' ? 'white' : '#6b7280',
-              border: 'none',
-              borderRadius: '6px',
-              fontSize: '0.875rem',
-              fontWeight: '500',
-              cursor: 'pointer',
-              transition: 'all 0.2s'
-            }}
-          >
-            All Licenses
-          </button>
-          <button
-            onClick={() => {
-              setViewMode('trial');
-              setPage(1);
-            }}
-            style={{
-              padding: '0.5rem 1.5rem',
-              background: viewMode === 'trial' ? '#667eea' : 'transparent',
-              color: viewMode === 'trial' ? 'white' : '#6b7280',
-              border: 'none',
-              borderRadius: '6px',
-              fontSize: '0.875rem',
-              fontWeight: '500',
-              cursor: 'pointer',
-              transition: 'all 0.2s'
-            }}
-          >
-            Trial Licenses
-          </button>
-        </div>
+        {/* View Mode Tabs - Ẩn Trial Licenses tab cho RESELLER */}
+        {userRole !== 'RESELLER' && (
+          <div style={{
+            background: 'rgba(255, 255, 255, 0.1)',
+            backdropFilter: 'blur(10px)',
+            WebkitBackdropFilter: 'blur(10px)',
+            border: '1px solid rgba(255, 255, 255, 0.2)',
+            borderRadius: '16px',
+            padding: '1rem',
+            marginBottom: '1.5rem',
+            display: 'flex',
+            gap: '0.5rem',
+            boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.37)'
+          }}>
+            <button
+              onClick={() => {
+                setViewMode('all');
+                setPage(1);
+              }}
+              style={{
+                padding: '0.5rem 1.5rem',
+                background: viewMode === 'all' ? '#667eea' : 'transparent',
+                color: viewMode === 'all' ? 'white' : '#6b7280',
+                border: 'none',
+                borderRadius: '6px',
+                fontSize: '0.875rem',
+                fontWeight: '500',
+                cursor: 'pointer',
+                transition: 'all 0.2s'
+              }}
+            >
+              All Licenses
+            </button>
+            <button
+              onClick={() => {
+                setViewMode('trial');
+                setPage(1);
+              }}
+              style={{
+                padding: '0.5rem 1.5rem',
+                background: viewMode === 'trial' ? '#667eea' : 'transparent',
+                color: viewMode === 'trial' ? 'white' : '#6b7280',
+                border: 'none',
+                borderRadius: '6px',
+                fontSize: '0.875rem',
+                fontWeight: '500',
+                cursor: 'pointer',
+                transition: 'all 0.2s'
+              }}
+            >
+              Trial Licenses
+            </button>
+          </div>
+        )}
 
         {/* Filters */}
         <div style={{

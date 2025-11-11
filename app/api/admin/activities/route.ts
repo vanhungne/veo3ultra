@@ -19,6 +19,12 @@ export async function GET(req: NextRequest) {
     const action = searchParams.get('action');
 
     const where: any = {};
+    
+    // If user is RESELLER, only show activities they created
+    if (admin.role === 'RESELLER') {
+      where.adminId = admin.id;
+    }
+    
     if (action) {
       where.action = { contains: action };
     }

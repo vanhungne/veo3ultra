@@ -36,28 +36,35 @@ export async function GET(
 
     // Check if reseller can view this license
     if (admin.role === 'RESELLER') {
-      // Reseller can view trial licenses OR licenses they created
-      if (license.type !== 'TRIAL') {
-        if (!license.metadata) {
+      // Reseller CHỈ được xem license mà họ tạo (KHÔNG được xem TRIAL licenses)
+      if (license.type === 'TRIAL') {
+        return NextResponse.json({
+          success: false,
+          error: 'Access denied - Resellers cannot view trial licenses',
+        }, { status: 403 });
+      }
+      
+      // Check if license was created by this reseller
+      if (!license.metadata) {
+        return NextResponse.json({
+          success: false,
+          error: 'Access denied - License not created by this reseller',
+        }, { status: 403 });
+      }
+      
+      try {
+        const metadata = JSON.parse(license.metadata);
+        if (metadata.resellerEmail !== admin.email) {
           return NextResponse.json({
             success: false,
-            error: 'Access denied',
+            error: 'Access denied - License not created by this reseller',
           }, { status: 403 });
         }
-        try {
-          const metadata = JSON.parse(license.metadata);
-          if (metadata.resellerEmail !== admin.email) {
-            return NextResponse.json({
-              success: false,
-              error: 'Access denied',
-            }, { status: 403 });
-          }
-        } catch (e) {
-          return NextResponse.json({
-            success: false,
-            error: 'Access denied',
-          }, { status: 403 });
-        }
+      } catch (e) {
+        return NextResponse.json({
+          success: false,
+          error: 'Access denied - Invalid license metadata',
+        }, { status: 403 });
       }
     }
 
@@ -74,6 +81,8 @@ export async function GET(
     }, { status: 500 });
   }
 }
+
+
 
 
 

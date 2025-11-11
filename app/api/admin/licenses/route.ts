@@ -42,63 +42,34 @@ export async function GET(req: NextRequest) {
     // Build where clause
     let where: any = {};
     
-    // If user is RESELLER, only show licenses they created
-    // BUT: Trial licenses are visible to everyone (managed separately)
+    // If user is RESELLER, only show licenses they created (KHÔNG bao gồm TRIAL)
     if (admin.role === 'RESELLER') {
-      // Build OR conditions: Trial licenses OR reseller's licenses
-      const orConditions: any[] = [
-        { type: 'TRIAL' }, // Trial licenses - everyone can see
-        { 
-          metadata: {
-            contains: `"resellerEmail":"${admin.email}"`,
-          }
+      // Reseller CHỈ được xem license mà họ tạo (không bao gồm TRIAL licenses)
+      where = {
+        ...baseFilters,
+        metadata: {
+          contains: `"resellerEmail":"${admin.email}"`,
         }
-      ];
-
-      // If type filter is set and not TRIAL, only show reseller's licenses with that type
-      if (type && type !== 'TRIAL') {
+      };
+      
+      // Reseller không được xem TRIAL licenses
+      // Nếu type filter là TRIAL, trả về empty (reseller không có quyền xem TRIAL)
+      if (type === 'TRIAL') {
+        // Return empty result for reseller when filtering by TRIAL
+        where = { id: 'never-match-this-id' }; // Force empty result
+      } else if (type) {
+        // If type filter is set and not TRIAL, filter by type
+        where.type = type;
+      }
+      
+      // Add search filter if exists
+      if (searchFilter) {
         where = {
-          ...baseFilters,
-          type: type,
-          metadata: {
-            contains: `"resellerEmail":"${admin.email}"`,
-          }
+          AND: [
+            where,
+            searchFilter
+          ]
         };
-        // Add search filter if exists
-        if (searchFilter) {
-          where = {
-            AND: [
-              where,
-              searchFilter
-            ]
-          };
-        }
-      } else {
-        // Show trial licenses OR reseller's licenses, with base filters
-        const andConditions: any[] = [
-          {
-            OR: orConditions
-          }
-        ];
-        
-        // Add base filters
-        Object.keys(baseFilters).forEach(key => {
-          andConditions.push({ [key]: baseFilters[key] });
-        });
-        
-        // Add search filter if exists
-        if (searchFilter) {
-          andConditions.push(searchFilter);
-        }
-        
-        where = {
-          AND: andConditions
-        };
-        
-        // If type filter is set to TRIAL, add it
-        if (type === 'TRIAL') {
-          where.AND.push({ type: 'TRIAL' });
-        }
       }
     } else {
       // Admin sees all licenses
