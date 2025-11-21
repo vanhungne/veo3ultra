@@ -26,7 +26,7 @@ export default function Home() {
     );
   }
 
-  const downloadLink = 'https://drive.google.com/file/d/15OHu2xkW167fnu76HW8499K9ArhrvzTc/view?usp=sharing';
+  const downloadLink = 'https://drive.google.com/file/d/1SOJvgadFawe3a5fv0cN7eTUlOOyLwO6X/view?usp=sharing';
 
   return (
     <div className="min-h-screen text-white overflow-x-hidden relative">
